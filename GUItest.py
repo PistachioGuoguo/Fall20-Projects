@@ -33,14 +33,16 @@ class Reversi(QWidget):
         self.setPalette(palette1)
         # load image for black and white pieces, and scale to 90% of GRID_SIZE
         self.black_piece = QPixmap('img/black_piece.png').scaledToWidth(PIECE_SIZE) # scale piece size to 90x90
-        self.white_piece = QPixmap('img/white_piece.png').scaledToWidth(PIECE_SIZE)
-
-
+        self.white_piece = QPixmap('img/biden_white_piece.png').scaledToWidth(PIECE_SIZE)
 
         # set window size and fix it
         self.resize(WINDOW_WIDTH, WINDOW_HEIGHT)
         self.setMinimumSize(QtCore.QSize(WINDOW_WIDTH, WINDOW_HEIGHT))
         self.setMaximumSize(QtCore.QSize(WINDOW_WIDTH, WINDOW_HEIGHT))
+
+        # set window name and icon
+        self.setWindowTitle("Pistachio-Guoguo's Othello")  # 窗口名称
+        self.setWindowIcon(QIcon('img/pistachio.png'))  # 窗口图标
 
         # self.pieces = [QLabel(self) for i in range(64)]
 
