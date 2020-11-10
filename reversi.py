@@ -73,9 +73,9 @@ class Game:
 
 
     def is_game_end(self):
-        if not self.find_all_valid_moves(): # make sure 1st player has no valid moves
+        if not self.find_all_valid_moves():
             game_copy = deepcopy(self)
-            game_copy.switch_turn() # check whether the other player also has valid moves
+            game_copy.switch_turn() # check whether the other player also has no valid moves
             return True if not game_copy.find_all_valid_moves() else False
         else:
             return False
@@ -93,11 +93,9 @@ class Game:
         num_white = np.count_nonzero(self.board == WHITE)
         if num_black != num_white:
             which_player = 'BLACK' if num_black > num_white else 'WHITE' # 32-32 is omitted for simplicity
-            comment = "GAME END -- Black: {} White: {}. -- {} wins!".format(num_black, num_white, which_player)
+            print("GAME END -- Black: {} White: {}. {} wins!".format(num_black, num_white, which_player))
         else:
-            comment = "GAME END -- Black: {} White: {}. -- Draw!".format(num_black, num_white)
-        # print(comment)
-        return comment
+            print("GAME END -- Black: {} White: {}. Draw!".format(num_black, num_white))
 
 
     def get_move(self, player):

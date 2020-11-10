@@ -35,11 +35,6 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\py\597ds\Fall20-Projects\draft" />
-    </key>
-  </component>
   <component name="RunManager" selected="Python.GUI_main (1)">
     <configuration name="GUI_main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Fall20-Projects" />
@@ -63,7 +58,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Qlabel" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="GUI_main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Fall20-Projects" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -71,12 +66,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/draft" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/draft/Qlabel.py" />
+      <option name="SCRIPT_NAME" value="F:\py\597ds\Fall20-Projects\GUI_main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -107,28 +102,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="qlist" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Fall20-Projects" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/draft" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/draft/qlist.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="reversi" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Fall20-Projects" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -151,7 +124,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="toolbars" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Fall20-Projects" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -159,12 +132,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/draft" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/draft/toolbars.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -176,18 +149,16 @@
     <list>
       <item itemvalue="Python.Unnamed" />
       <item itemvalue="Python.reversi" />
+      <item itemvalue="Python.test" />
+      <item itemvalue="Python.GUI_main" />
       <item itemvalue="Python.GUI_main (1)" />
-      <item itemvalue="Python.qlist" />
-      <item itemvalue="Python.toolbars" />
-      <item itemvalue="Python.Qlabel" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.GUI_main (1)" />
-        <item itemvalue="Python.Qlabel" />
-        <item itemvalue="Python.toolbars" />
-        <item itemvalue="Python.qlist" />
         <item itemvalue="Python.reversi" />
+        <item itemvalue="Python.GUI_main" />
+        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -202,7 +173,7 @@
       <option name="presentableId" value="Default" />
       <updated>1603954654553</updated>
       <workItem from="1603954660108" duration="23288000" />
-      <workItem from="1604866529402" duration="34182000" />
+      <workItem from="1604866529402" duration="21843000" />
     </task>
     <servers />
   </component>
@@ -223,53 +194,34 @@
     </state>
     <state x="331" y="151" key="FileChooserDialogImpl/0.0.1100.785@0.0.1100.785" timestamp="1604504292979" />
     <state x="462" y="159" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1604890452470" />
-    <state width="1478" height="210" key="GridCell.Tab.0.bottom" timestamp="1604975155296">
+    <state width="1478" height="210" key="GridCell.Tab.0.bottom" timestamp="1604938117688">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1058" height="210" key="GridCell.Tab.0.bottom/0.0.1100.785@0.0.1100.785" timestamp="1604507399577" />
-    <state width="1478" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1604975155296" />
-    <state width="1478" height="210" key="GridCell.Tab.0.center" timestamp="1604975155294">
+    <state width="1478" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1604938117688" />
+    <state width="1478" height="210" key="GridCell.Tab.0.center" timestamp="1604938117687">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1058" height="210" key="GridCell.Tab.0.center/0.0.1100.785@0.0.1100.785" timestamp="1604507399577" />
-    <state width="1478" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1604975155294" />
-    <state width="1478" height="210" key="GridCell.Tab.0.left" timestamp="1604975155294">
+    <state width="1478" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1604938117687" />
+    <state width="1478" height="210" key="GridCell.Tab.0.left" timestamp="1604938117687">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1058" height="210" key="GridCell.Tab.0.left/0.0.1100.785@0.0.1100.785" timestamp="1604507399577" />
-    <state width="1478" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1604975155294" />
-    <state width="1478" height="210" key="GridCell.Tab.0.right" timestamp="1604975155295">
+    <state width="1478" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1604938117687" />
+    <state width="1478" height="210" key="GridCell.Tab.0.right" timestamp="1604938117688">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1058" height="210" key="GridCell.Tab.0.right/0.0.1100.785@0.0.1100.785" timestamp="1604507399577" />
-    <state width="1478" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1604975155295" />
-    <state width="1478" height="258" key="GridCell.Tab.1.bottom" timestamp="1604972053380">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1478" height="258" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1604972053380" />
-    <state width="1478" height="258" key="GridCell.Tab.1.center" timestamp="1604972053380">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1478" height="258" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1604972053380" />
-    <state width="1478" height="258" key="GridCell.Tab.1.left" timestamp="1604972053380">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1478" height="258" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1604972053380" />
-    <state width="1478" height="258" key="GridCell.Tab.1.right" timestamp="1604972053380">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1478" height="258" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1604972053380" />
+    <state width="1478" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1604938117688" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1604879753327">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1604879753327" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Fall20_Projects$qlist.coverage" NAME="qlist Coverage Results" MODIFIED="1604939706432" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/draft" />
-    <SUITE FILE_PATH="coverage/Fall20_Projects$GUI_main__1_.coverage" NAME="GUI_main (1) Coverage Results" MODIFIED="1604975155285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Fall20_Projects$Qlabel.coverage" NAME="Qlabel Coverage Results" MODIFIED="1604942069181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/draft" />
+    <SUITE FILE_PATH="coverage/Fall20_Projects$GUI_main__1_.coverage" NAME="GUI_main (1) Coverage Results" MODIFIED="1604938117678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Fall20_Projects$reversi.coverage" NAME="reversi Coverage Results" MODIFIED="1604882373968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Fall20_Projects$toolbars.coverage" NAME="toolbars Coverage Results" MODIFIED="1604941894086" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/draft" />
     <SUITE FILE_PATH="coverage/Fall20_Projects$test.coverage" NAME="test Coverage Results" MODIFIED="1604868852351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Fall20_Projects$GUItest.coverage" NAME="GUI_main Coverage Results" MODIFIED="1604880801405" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
