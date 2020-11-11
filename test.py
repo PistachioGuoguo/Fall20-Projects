@@ -1,7 +1,7 @@
 import random
 import numpy as np
 
-a = np.array( [1,2,3,3,2,11,1,1,])
+stats = {'a':1000, 'b':3000, 'c': 100, 'd':3000}
 
 
-print(random.choice(a))
+print(max(stats, key=stats.get))

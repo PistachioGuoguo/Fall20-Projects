@@ -80,6 +80,49 @@ class Game:
         else:
             return False
 
+    def finish_count(self):
+        num_black = np.count_nonzero(self.board == BLACK)
+        num_white = np.count_nonzero(self.board == WHITE)
+        if num_black != num_white:
+            which_player = 'BLACK' if num_black > num_white else 'WHITE'  # 32-32 is omitted for simplicity
+            comment = "GAME END -- Black: {} White: {}. -- {} wins!".format(num_black, num_white, which_player)
+        else:
+            comment = "GAME END -- Black: {} White: {}. -- Draw!".format(num_black, num_white)
+        print(comment)
+        # return comment # used for GUI
+        return num_black - num_white
+
+
+
+    def get_move(self, player):
+        # Check for game settings and decide whether it's AI or human player's turn
+        players_dict = {}
+
+        # Mode1: Man vs Machine
+        if self.mode['mode'] == 'man-machine':
+            if self.mode['human_first']:
+                players_dict = {BLACK: 'HUMAN', WHITE: 'AI'}
+            else:
+                players_dict = {BLACK: 'AI', WHITE: 'HUMAN'}
+
+            if players_dict[player] == 'HUMAN':
+                move = get_input()
+            elif players_dict[player] == 'AI':
+                if self.mode['ai'] == 'random':
+                    move = self.random_move()
+                elif self.mode['ai'] == 'minimax':
+                    move = self.minimax_move()
+
+        # Mode2: AI vs AI
+        elif self.mode['mode'] == 'machine-machine':
+            players_dict = {BLACK: self.mode['black_strat'], WHITE: self.mode['white_strat']}
+            if players_dict[player] == 'random':
+                move = self.random_move()
+            elif players_dict[player] == 'minimax':
+                move = self.minimax_move()
+
+        return move
+
 
     def random_move(self):
         valid_moves = self.find_all_valid_moves() # a list of current valid moves
@@ -88,38 +131,31 @@ class Game:
         else:
             return None
 
-    def finish_count(self):
-        num_black = np.count_nonzero(self.board == BLACK)
-        num_white = np.count_nonzero(self.board == WHITE)
-        if num_black != num_white:
-            which_player = 'BLACK' if num_black > num_white else 'WHITE' # 32-32 is omitted for simplicity
-            comment = "GAME END -- Black: {} White: {}. -- {} wins!".format(num_black, num_white, which_player)
+
+    def minimax_move(self, depth=1):
+        # return the move with max minimax score
+        # minimax(board, depth, player, alpha, beta) -> int:
+        move_eval_dict = {}
+        possible_moves = self.find_all_valid_moves()
+        if possible_moves:
+            for move in possible_moves:
+                game_copy = deepcopy(self)
+                game_copy.take_move(move[0], move[1])
+                move_eval_dict[move] = minimax(game_copy.board, depth=depth, player=opposite(self.current_player))
+            if self.current_player == BLACK:
+                return max(move_eval_dict, key=move_eval_dict.get) # return the move with max minimax score
+            else: # White is the minimizing player, the less the better.
+                return min(move_eval_dict, key=move_eval_dict.get)
+                # Initially when I adapted from Sebestian's Youtube code, I forgot the above two lines
+                # and Black wins 95% even white uses minimax and black uses 'random'
         else:
-            comment = "GAME END -- Black: {} White: {}. -- Draw!".format(num_black, num_white)
-        # print(comment)
-        return comment
+            return None
 
 
-    def get_move(self, player):
-        players_dict = {}
-        if self.mode['mode'] == 'man-machine':
-            if self.mode['human_first']:
-                players_dict = {BLACK: 'HUMAN', WHITE: 'AI'}
-            else:
-                players_dict = {BLACK: 'AI', WHITE: 'HUMAN'}
-        elif self.mode['mode'] == 'machine-machine':
-            players_dict = {BLACK: 'AI', WHITE: 'AI'}
 
-        if players_dict[player] == 'HUMAN':
-            move = get_input()
-        elif players_dict[player] == 'AI':
-            if self.mode['ai'] == 'random':
-                move = self.random_move()
-        return move
-
-
-    def main_flow(self, game_mode='man-machine', human_first=True, ai_strategy='random'):
-        self.mode = {'mode' : game_mode, 'human_first' : human_first, 'ai' : ai_strategy}
+    def main_flow(self, game_mode='man-machine', human_first=True, ai_strategy='random',
+                  black_strat='random', white_strat='random', print_board=True):
+        self.mode = {'mode' : game_mode, 'human_first' : human_first, 'ai' : ai_strategy,'black_strat': black_strat, 'white_strat' : white_strat}
 
         while not self.is_game_end():
             if self.find_all_valid_moves(): # if have valid moves for current player
@@ -128,18 +164,19 @@ class Game:
                     if self.is_valid_move(new_move[0], new_move[1]): # if entered a valid move
                         self.take_move(new_move[0], new_move[1])
                         self.switch_turn()
-                        self.print_board() # print the game situation when a valid move is taken
+                        if print_board:
+                            self.print_board() # print the game situation when a valid move is taken
                         break
                     else:
                         print('Invalid move. Please try again.')
             else: # no valid moves for current player
                 self.switch_turn()
 
-        self.finish_count()
-
+        return self.finish_count() # num_black - num_white
 
 
     def print_board(self):
+        # print board in command line
         EMPTY_PIECE = '+'
         BLACK_PIECE = '⚫'
         WHITE_PIECE = '⚪'
@@ -152,16 +189,105 @@ class Game:
         print('================================================')
 
 
+
 def get_input():
     move = input('Please enter your move in form x,y: ')
     x, y = move.split(',')
     return (int(x), int(y)) # all moves takes the form of tuple
 
 
-if __name__ == '__main__':
-    g1 = Game()
-    g1.main_flow(game_mode='machine-machine', human_first=True)
+# ------------ Minimax part ---------------
 
+pos_score_map = [120, -20,  20,   5,   5,  20, -20, 120,
+     -20, -40,  -5,  -5,  -5,  -5, -40, -20,
+      20,  -5,  15,   3,   3,  15,  -5,  20,
+      5,  -5,   3,   3,   3,   3,  -5,   5,
+      5,  -5,   3,   3,   3,   3,  -5,   5,
+      20,  -5,  15,   3,   3,  15,  -5,  20,
+     -20, -40,  -5,  -5,  -5,  -5, -40, -20,
+     120, -20,  20,   5,   5,  20, -20, 120]
+
+pos_score_map = np.array(pos_score_map).reshape(DIM, DIM)
+
+
+def pos_score_sum(board):
+    # defined as (Σ black - Σ white), black tries to maximize while white minimizes
+    sum_black = 0
+    sum_white = 0
+    for i in range(DIM):
+        for j in range(DIM):
+            if board[i, j] == BLACK:
+                sum_black += pos_score_map[i, j]
+            elif board[i, j] == WHITE:
+                sum_white += pos_score_map[i, j]
+    return  sum_black - sum_white
+
+
+def minimax(board, depth, player, alpha=-np.inf, beta=np.inf):
+    if depth == 0:
+        return pos_score_sum(board)
+
+    game = Game()
+    game.board = board
+    game.current_player = player
+    possible_moves = game.find_all_valid_moves()
+
+    if possible_moves:
+        if player == BLACK: # maximizing player
+            max_eval = - np.inf
+            for move in possible_moves:
+                game_copy = deepcopy(game)
+                game_copy.take_move(move[0], move[1])
+                eval = minimax(game_copy.board, depth-1, opposite(player), alpha, beta)
+                max_eval = max(max_eval, eval)
+                alpha = max(alpha, eval)
+                if beta <= alpha:
+                    break
+            return max_eval
+
+        else: # WHITE, minimizing player
+            min_eval = np.inf
+            for move in possible_moves:
+                game_copy = deepcopy(game)
+                game_copy.take_move(move[0], move[1])
+                eval = minimax(game_copy.board, depth - 1, opposite(player), alpha, beta)
+                min_eval = min(min_eval, eval)
+                beta = min(beta, eval)
+                if beta <= alpha:
+                    break
+            return min_eval
+
+    else: # no possible move for current player
+        game.switch_turn()
+        possible_moves = game.find_all_valid_moves() # check whether opponent has moves
+        if possible_moves:
+            return minimax(game.board, depth-1, opposite(player), alpha, beta) # hand over to opponent, nothing changed
+        else: # the opponent has no moves either, game over
+            return pos_score_sum(game.board)
+
+
+
+
+if __name__ == '__main__':
+    # g1 = Game()
+    # # g1.main_flow(game_mode='machine-machine', human_first=True)
+    # # g1.main_flow(game_mode='machine-machine', ai_strategy='minimax')
+    # g1.main_flow(game_mode='machine-machine', black_strat='minimax', white_strat='random')
+
+    random.seed(10)
+
+    black_wins = 0
+    white_wins = 0
+
+    for i in range(100):
+        g1 = Game()
+        res = g1.main_flow(game_mode='machine-machine', black_strat='minimax', white_strat='random', print_board=False)
+        if res > 0:
+            black_wins += 1
+        elif res < 0:
+            white_wins += 1
+
+    print("Black - White : {} - {}".format(black_wins, white_wins))
 
 
 

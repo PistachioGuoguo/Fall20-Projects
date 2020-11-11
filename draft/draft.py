@@ -1,39 +1,40 @@
 
-
-def get_move(self, player: int):  # get_move(white)
-    players_dict = {}
-    if self.game.mode['mode'] == 'man-machine':
-        if self.game.mode['human_first']:
-            players_dict = {BLACK: 'HUMAN', WHITE: 'AI'}
-        else:
-            players_dict = {BLACK: 'AI', WHITE: 'HUMAN'}
-    elif self.game.mode['mode'] == 'machine-machine':
-        players_dict = {BLACK: 'AI', WHITE: 'AI'}
-
-    if players_dict[player] == 'HUMAN':
-        move = self.clicked_pos
-    elif players_dict[player] == 'AI':
-        if self.game.mode['ai'] == 'random':
-            move = self.game.random_move()
-    return move
+def pos_score_sum(board, player):
+    # Define pos_score_sum as sum of self minus sum of opponent, try to maximize in minimax
+    self_score = 0
+    opponent_score = 0
+    for i in range(DIM):
+        for j in range(DIM):
+            if board[i, j] == player:
+                self_score += pos_score_map[i, j]
+            elif board[i, j] == opposite(player):
+                opponent_score += pos_score_map[i, j]
+    return self_score - opponent_score
 
 
-def main_flow(self, game_mode='man-machine', human_first=True, ai_strategy='random'):
-    self.game.mode = {'mode': game_mode, 'human_first': human_first, 'ai': ai_strategy}
 
-    while not self.game.is_game_end():
-        if self.game.find_all_valid_moves():  # if have valid moves for current player
-            while True:
-                time.sleep(1)
-                new_move = self.get_move(self.game.current_player)  # request new move
-                if self.game.is_valid_move(new_move[0], new_move[1]):  # if entered a valid move
-                    self.game.take_move(new_move[0], new_move[1])
-                    self.game.switch_turn()
-                    self.draw_board()  # print the game situation when a valid move is taken
-                    break
-                else:
-                    print('Invalid move. Please try again.')
-        else:  # no valid moves for current player
-            self.game.switch_turn()
-
-    self.game.finish_count()
+# A self written minimax algorithm, which successfully works
+def minimax(board, depth, player, eval_func=pos_score_sum) -> int:
+    if depth == 0:
+        return eval_func(board, player) # just count
+    else:
+        game = Game()
+        game.board = board
+        game.current_player = player
+        possible_moves = game.find_all_valid_moves()
+        scores = []
+        if possible_moves:
+            for move in possible_moves:
+                game_copy = deepcopy(game)
+                game_copy.take_move(move[0], move[1])
+                scores.append(-minimax(game_copy.board, depth - 1, opposite(player), eval_func))
+            return max(scores)
+        else: # current player has no valid moves
+            game.switch_turn() # hand over to opponent
+            opponent_moves = game.find_all_valid_moves()
+            if opponent_moves: # opponent has move
+                for move in opponent_moves:
+                    scores.append(-minimax(game.board, depth - 1, opposite(player), eval_func))
+                return max(scores)
+            else: # enemy also has no moves, that's it end of game
+                return eval_func(board, player)
