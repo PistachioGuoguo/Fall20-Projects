@@ -4,8 +4,10 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QMessageBox, QMainWin
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QIcon, QPalette, QPainter
 from PyQt5.QtMultimedia import QSound
-import reversi
+import othello
 import time
+
+# this is the GUI for normal reversi
 
 BLACK = 1
 WHITE = 2
@@ -27,26 +29,24 @@ def pixel_to_coord(x, y):
     return int( (x-(GAP-2)) / GRID_SIZE ), int( (y-(GAP-1)) // GRID_SIZE )
 
 
-class Window(QMainWindow): # originally QWidget
+class OthelloWindow(QMainWindow): # originally QWidget
 
     def __init__(self):
         super().__init__()
         self.init_UI()
 
-
     def init_UI(self):
+        self.game = othello.Othello()
+        self.load_piece_asset()
+        self.load_background()
+        self.setMouseTracking(True)
+        self.draw_board()
 
-        self.game = reversi.Game()
-
+    def load_background(self):
         # load chessboard as background
         palette1 = QPalette()
         palette1.setBrush(self.backgroundRole(), QtGui.QBrush(QtGui.QPixmap('img/chessboard.png')))
         self.setPalette(palette1)
-
-        # load icons for black and white pieces, and scale to 90% of GRID_SIZE
-        self.black_piece = QPixmap('img/black_piece.png').scaledToWidth(PIECE_SIZE) # scale piece size to 90x90
-        self.white_piece = QPixmap('img/white_piece.png').scaledToWidth(PIECE_SIZE)
-        self.feasible_move = QPixmap('img/asterisk.png').scaledToWidth(0.4 * PIECE_SIZE)
 
         # set each piece value to BLACK OR WHITE, else if draw new piece every time, the shade will overlay
         self.pieces = [QLabel(self) for i in range(64)]
@@ -61,11 +61,16 @@ class Window(QMainWindow): # originally QWidget
         self.setWindowTitle("Pistachio-Guoguo's Othello")  # 窗口名称
         self.setWindowIcon(QIcon('img/pistachio.png'))  # 窗口图标
 
-        self.setMouseTracking(True)
-        self.draw_board()
 
+
+    def load_piece_asset(self):
+        # load icons for black and white pieces, and scale to 90% of GRID_SIZE
+        self.black_piece = QPixmap('img/black_piece.png').scaledToWidth(PIECE_SIZE)  # scale piece size to 90x90
+        self.white_piece = QPixmap('img/white_piece.png').scaledToWidth(PIECE_SIZE)
+        self.feasible_move = QPixmap('img/asterisk.png').scaledToWidth(0.4 * PIECE_SIZE)
 
     def mousePressEvent(self, e):
+        # define the loop when a mouse click event is happen
         if e.button() == Qt.LeftButton:
             x, y = e.x(), e.y()  # mouse position (pixels)
             j, i = pixel_to_coord(x, y)
@@ -123,13 +128,14 @@ class Window(QMainWindow): # originally QWidget
 
 
     def game_over(self):
-        msg = self.game.finish_count().split('--')
+        # a message box to restart or quit game
+        msg = self.game.finish_count(return_option='full').split('--')
 
         reply = QMessageBox.question(self, msg[2].strip(), msg[1] + 'Restart?',
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
 
         if reply == QMessageBox.Yes:
-            self.game = reversi.Game() # reset
+            self.game = othello.Othello() # reset
             for piece in self.pieces:
                 piece.clear()
             self.draw_board()
@@ -140,7 +146,7 @@ class Window(QMainWindow): # originally QWidget
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = Window()
+    window = OthelloWindow()
     window.show()
     sys.exit(app.exec_())
 

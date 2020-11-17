@@ -11,15 +11,15 @@ DIM = 8 # 8x8 is normal Reversi
 
 # board = np.random.choice((BLACK,WHITE),(DIM, DIM)) # create a 8x8 array of 1s and 2s (blacks and whites)
 
-
 # print(board)
 def opposite(player: int):
     return BLACK if player == WHITE else WHITE
 
 def is_inbound(x, y):
+    # decide whether a tuple in inside the board
     return 0 <= x < DIM and 0 <= y < DIM
 
-class Game:
+class Othello:
     def __init__(self):
         self.board = np.full((DIM, DIM), EMPTY) # initialize board
         self.current_player = BLACK
@@ -64,6 +64,7 @@ class Game:
 
 
     def find_all_valid_moves(self):
+        # find all possible moves, return in form of: a list of tuples
         valid_moves = []
         for i in range(DIM):
             for j in range(DIM):
@@ -80,7 +81,10 @@ class Game:
         else:
             return False
 
-    def finish_count(self):
+    def finish_count(self, return_option='net'):
+        """
+        :param return_option: 'net' : returns num_black - num_white, 'full': returns num_black and num_white in a string
+        """
         num_black = np.count_nonzero(self.board == BLACK)
         num_white = np.count_nonzero(self.board == WHITE)
         if num_black != num_white:
@@ -89,9 +93,10 @@ class Game:
         else:
             comment = "GAME END -- Black: {} White: {}. -- Draw!".format(num_black, num_white)
         print(comment)
-        # return comment # used for GUI
-        return num_black - num_white
-
+        if return_option == 'net':
+            return num_black - num_white
+        elif return_option == 'full':
+            return comment  # used for normal reversi GUI
 
 
     def get_move(self, player):
@@ -227,7 +232,7 @@ def minimax(board, depth, player, alpha=-np.inf, beta=np.inf):
     if depth == 0:
         return pos_score_sum(board)
 
-    game = Game()
+    game = Othello()
     game.board = board
     game.current_player = player
     possible_moves = game.find_all_valid_moves()
@@ -280,7 +285,7 @@ if __name__ == '__main__':
     white_wins = 0
 
     for i in range(100):
-        g1 = Game()
+        g1 = Othello()
         res = g1.main_flow(game_mode='machine-machine', black_strat='minimax', white_strat='random', print_board=False)
         if res > 0:
             black_wins += 1
