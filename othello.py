@@ -1,6 +1,8 @@
 import numpy as np
 import random
 from copy import deepcopy
+import minimax as mm
+
 
 EMPTY = 0
 BLACK = 1
@@ -9,9 +11,6 @@ DIRECTIONS = [(-1,0),(-1,1),(-1,-1),(0,1),(0,-1),(1,0),(1,1),(1,-1)]
 
 DIM = 8 # 8x8 is normal Reversi
 
-# board = np.random.choice((BLACK,WHITE),(DIM, DIM)) # create a 8x8 array of 1s and 2s (blacks and whites)
-
-# print(board)
 def opposite(player: int):
     return BLACK if player == WHITE else WHITE
 
@@ -81,9 +80,9 @@ class Othello:
         else:
             return False
 
-    def finish_count(self, return_option='net'):
+    def finish_count(self, return_option='net', print_each_game_final=True):
         """
-        :param return_option: 'net' : returns num_black - num_white, 'full': returns num_black and num_white in a string
+        :param return_option: 'net' : returns num_black - num_white, 'summary': returns num_black and num_white in a string
         """
         num_black = np.count_nonzero(self.board == BLACK)
         num_white = np.count_nonzero(self.board == WHITE)
@@ -92,10 +91,11 @@ class Othello:
             comment = "GAME END -- Black: {} White: {}. -- {} wins!".format(num_black, num_white, which_player)
         else:
             comment = "GAME END -- Black: {} White: {}. -- Draw!".format(num_black, num_white)
-        print(comment)
+        if print_each_game_final:
+            print(comment)
         if return_option == 'net':
             return num_black - num_white
-        elif return_option == 'full':
+        elif return_option == 'summary':
             return comment  # used for normal reversi GUI
 
 
@@ -123,9 +123,15 @@ class Othello:
             players_dict = {BLACK: self.mode['black_strat'], WHITE: self.mode['white_strat']}
             if players_dict[player] == 'random':
                 move = self.random_move()
-            elif players_dict[player] == 'minimax':
-                move = self.minimax_move()
-
+            elif players_dict[player].find('minimax') != -1: # if contains 'minimax', then it's minimax family
+                # format: 'minimax|3|pos_score'  means depth=3, eval_func=pos_score
+                params = players_dict[player].split('|')
+                if len(params) == 3:
+                    depth = int(params[1])
+                    eval_func = params[2]
+                    move = self.minimax_move(depth=depth, eval_func=eval_func )
+                else: # use default
+                    move = self.minimax_move()
         return move
 
 
@@ -137,7 +143,7 @@ class Othello:
             return None
 
 
-    def minimax_move(self, depth=1):
+    def minimax_move(self, depth=1, eval_func='pos_score'):
         # return the move with max minimax score
         # minimax(board, depth, player, alpha, beta) -> int:
         move_eval_dict = {}
@@ -146,7 +152,9 @@ class Othello:
             for move in possible_moves:
                 game_copy = deepcopy(self)
                 game_copy.take_move(move[0], move[1])
-                move_eval_dict[move] = minimax(game_copy.board, depth=depth, player=opposite(self.current_player))
+                move_eval_dict[move] = mm.minimax(game_copy.board, depth=depth, player=opposite(self.current_player), eval_func=eval_func)
+
+            move_eval_dict = mm.shuffle_dict(move_eval_dict) # shuffle the dict, or always choose the same move
             if self.current_player == BLACK:
                 return max(move_eval_dict, key=move_eval_dict.get) # return the move with max minimax score
             else: # White is the minimizing player, the less the better.
@@ -157,9 +165,9 @@ class Othello:
             return None
 
 
-
+    # main game flow
     def main_flow(self, game_mode='man-machine', human_first=True, ai_strategy='random',
-                  black_strat='random', white_strat='random', print_board=True):
+                  black_strat='random', white_strat='random', print_board=True, print_each_game_final=True):
         self.mode = {'mode' : game_mode, 'human_first' : human_first, 'ai' : ai_strategy,'black_strat': black_strat, 'white_strat' : white_strat}
 
         while not self.is_game_end():
@@ -177,7 +185,7 @@ class Othello:
             else: # no valid moves for current player
                 self.switch_turn()
 
-        return self.finish_count() # num_black - num_white
+        return self.finish_count(print_each_game_final= print_each_game_final) # num_black - num_white
 
 
     def print_board(self):
@@ -194,106 +202,66 @@ class Othello:
         print('================================================')
 
 
-
 def get_input():
     move = input('Please enter your move in form x,y: ')
     x, y = move.split(',')
     return (int(x), int(y)) # all moves takes the form of tuple
 
 
-# ------------ Minimax part ---------------
-
-pos_score_map = [120, -20,  20,   5,   5,  20, -20, 120,
-     -20, -40,  -5,  -5,  -5,  -5, -40, -20,
-      20,  -5,  15,   3,   3,  15,  -5,  20,
-      5,  -5,   3,   3,   3,   3,  -5,   5,
-      5,  -5,   3,   3,   3,   3,  -5,   5,
-      20,  -5,  15,   3,   3,  15,  -5,  20,
-     -20, -40,  -5,  -5,  -5,  -5, -40, -20,
-     120, -20,  20,   5,   5,  20, -20, 120]
-
-pos_score_map = np.array(pos_score_map).reshape(DIM, DIM)
+def man_vs_AI(human_first=True, ai_strategy='minimax'):
+    # a high-level integration function for man_vs AI
+    g1 = Othello()
+    g1.main_flow(game_mode='man-machine', human_first=human_first, ai_strategy=ai_strategy)
 
 
-def pos_score_sum(board):
-    # defined as (Σ black - Σ white), black tries to maximize while white minimizes
-    sum_black = 0
-    sum_white = 0
-    for i in range(DIM):
-        for j in range(DIM):
-            if board[i, j] == BLACK:
-                sum_black += pos_score_map[i, j]
-            elif board[i, j] == WHITE:
-                sum_white += pos_score_map[i, j]
-    return  sum_black - sum_white
-
-
-def minimax(board, depth, player, alpha=-np.inf, beta=np.inf):
-    if depth == 0:
-        return pos_score_sum(board)
-
-    game = Othello()
-    game.board = board
-    game.current_player = player
-    possible_moves = game.find_all_valid_moves()
-
-    if possible_moves:
-        if player == BLACK: # maximizing player
-            max_eval = - np.inf
-            for move in possible_moves:
-                game_copy = deepcopy(game)
-                game_copy.take_move(move[0], move[1])
-                eval = minimax(game_copy.board, depth-1, opposite(player), alpha, beta)
-                max_eval = max(max_eval, eval)
-                alpha = max(alpha, eval)
-                if beta <= alpha:
-                    break
-            return max_eval
-
-        else: # WHITE, minimizing player
-            min_eval = np.inf
-            for move in possible_moves:
-                game_copy = deepcopy(game)
-                game_copy.take_move(move[0], move[1])
-                eval = minimax(game_copy.board, depth - 1, opposite(player), alpha, beta)
-                min_eval = min(min_eval, eval)
-                beta = min(beta, eval)
-                if beta <= alpha:
-                    break
-            return min_eval
-
-    else: # no possible move for current player
-        game.switch_turn()
-        possible_moves = game.find_all_valid_moves() # check whether opponent has moves
-        if possible_moves:
-            return minimax(game.board, depth-1, opposite(player), alpha, beta) # hand over to opponent, nothing changed
-        else: # the opponent has no moves either, game over
-            return pos_score_sum(game.board)
-
-
-
-
-if __name__ == '__main__':
-    # g1 = Game()
-    # # g1.main_flow(game_mode='machine-machine', human_first=True)
-    # # g1.main_flow(game_mode='machine-machine', ai_strategy='minimax')
-    # g1.main_flow(game_mode='machine-machine', black_strat='minimax', white_strat='random')
-
-    random.seed(10)
-
+def AI_vs_AI(num_game=100, black_strat='random', white_strat='random', print_each_game_final=True, print_game_summary=True):
+    # used for convenience in comparing the strength of different AIs for a specific number of game
     black_wins = 0
     white_wins = 0
 
-    for i in range(100):
+    for i in range(num_game):
         g1 = Othello()
-        res = g1.main_flow(game_mode='machine-machine', black_strat='minimax', white_strat='random', print_board=False)
+        res = g1.main_flow(game_mode='machine-machine', black_strat=black_strat, white_strat=white_strat,
+                           print_board=False, print_each_game_final=print_each_game_final)
         if res > 0:
             black_wins += 1
         elif res < 0:
             white_wins += 1
 
-    print("Black - White : {} - {}".format(black_wins, white_wins))
+    black_winrate = black_wins / (black_wins + white_wins)
+    if print_game_summary:
+        print("Black - White : {} - {}".format(black_wins, white_wins))
+        print("Black winrate: %.2f" % black_winrate)
+    return black_winrate
 
+def AI_compete_matrix():
+    AI_list = ['random', 'minimax|0|pos_score', 'minimax|0|mobi', 'minimax|0|pos_mobi',
+               'minimax|1|pos_score', 'minimax|1|mobi', 'minimax|1|pos_mobi',
+               'minimax|2|pos_score', 'minimax|2|pos_mobi']
+    for ai1 in AI_list:
+        for ai2 in AI_list:
+            wr = AI_vs_AI(100, ai1, ai2, print_each_game_final=False, print_game_summary=False)
+            print('%s - %s : %.2f' % (ai1, ai2, wr))
+
+if __name__ == '__main__':
+
+    random.seed(1)
+
+    # strategies for AI: 'random', 'minimax'
+    # minimax strats: 'minimax|depth|eval_func', where depth=1,2,3,... eval_func = 'pos_score', 'mobi', 'pos_mobi'
+    # e.g:  black_strat='minimax|1|pos_mobi'
+
+    # AI_vs_AI(num_game=100, black_strat='minimax|0|pos_score', white_strat='minimax|0|pos_mobi' )
+    AI_vs_AI(num_game=100, black_strat='random', white_strat='minimax|0|pos_score')
+    # man_vs_AI(human_first=True, ai_strategy='minimax')
+
+    # this function is extremely time-costing
+    # AI_compete_matrix()
+
+    # g1 = Game()
+    # # g1.main_flow(game_mode='machine-machine', human_first=True)
+    # # g1.main_flow(game_mode='machine-machine', ai_strategy='minimax')
+    # g1.main_flow(game_mode='machine-machine', black_strat='minimax', white_strat='random')
 
 
 

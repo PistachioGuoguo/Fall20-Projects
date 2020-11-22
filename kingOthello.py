@@ -1,10 +1,15 @@
 from othello import Othello
-from othello import EMPTY, BLACK, WHITE, DIRECTIONS
-from othello import opposite, is_inbound
+from othello import EMPTY, BLACK, WHITE, DIRECTIONS, DIM
+from othello import opposite, is_inbound, deepcopy
+import minimax as mm
+import numpy as np
 
 BLACK_KING = 3
 WHITE_KING = 4
 
+NUM_INITIAL_KING = 5
+PLACE_KING_THRESHOLD = 20 # there needs to be a threshold to place king, only exceed this threshold
+KING_THRES_INCREMENT = 20 # for each king place, the threshold rise up, to not waste king pieces
 
 def king(player: int):
     if player == BLACK:
@@ -17,6 +22,8 @@ class KingOthello(Othello):
 
     def __init__(self):
         super(KingOthello, self).__init__()
+        self.black_king_remain = self.white_king_remain = NUM_INITIAL_KING # provide each player with NUM_INITIAL_KING
+        self.black_king_thres = self.white_king_thres = PLACE_KING_THRESHOLD
 
     def is_valid_move(self, x, y, is_king=False):
         # if is_king=True, decide whether the move is valid for a king piece, else calculate only for a normal piece
@@ -32,6 +39,12 @@ class KingOthello(Othello):
                             return True  # find one valid is enough
                 return False
             else: # this is a king piece
+                if self.current_player == BLACK:
+                    if self.black_king_remain == 0:
+                        return False # not more king pieces
+                else: # current_player is WHITE
+                    if self.white_king_remain == 0:
+                        return False
                 opp_king = king(opposite(self.current_player))
                 for direction in DIRECTIONS:
                     met_opponent_king = False # whether has enemy king in middle, if so, the two end must be self's two kings to reverse
@@ -62,7 +75,13 @@ class KingOthello(Othello):
             if not is_king:
                 self.board[x, y] = self.current_player
             else:
-                self.board[x, y] = king(self.current_player)
+                self.board[x, y] = king(self.current_player) # place king piece
+                if self.current_player == BLACK:
+                    self.black_king_remain -= 1 # minus one from balance
+                    self.black_king_thres += KING_THRES_INCREMENT
+                else:
+                    self.white_king_remain -= 1
+                    self.white_king_thres += KING_THRES_INCREMENT
             pieces_to_reverse = []
             for direction in DIRECTIONS:
                 new_x, new_y = x + direction[0], y + direction[1]
@@ -97,6 +116,70 @@ class KingOthello(Othello):
         else:
             print("Invalid move.")
 
+    def is_game_end(self):
+        if not self.find_all_valid_moves(): # make sure 1st player has no valid moves
+            game_copy = deepcopy(self)
+            game_copy.switch_turn() # check whether the other player also has valid moves
+            return True if not game_copy.find_all_valid_moves() else False
+        else:
+            return False
+
+    def find_all_valid_moves(self):
+        # find all possible moves, return in form of: a list of tuples
+        valid_moves = []
+        for i in range(DIM):
+            for j in range(DIM):
+                for is_king in [True, False]: # check for king and common pieces
+                    if self.is_valid_move(i, j, is_king):
+                        valid_moves.append((i, j, is_king))
+        return valid_moves
+
+    def best_move(self, move_eval_dict : dict):
+        # choose a best move from move_eval_dict, for current player
+        king_move = {}
+        common_move = {}
+        for move in move_eval_dict: # separate into two dicts, and find max or min for each one
+            if move[2] == True: # if king move
+                king_move[move] = move_eval_dict[move]
+            else:
+                common_move[move] = move_eval_dict[move]
+
+        if self.current_player == BLACK:
+            m1 = max(king_move, key=king_move.get)
+            m2 = max(common_move, key=common_move.get)
+            if move_eval_dict[m1] - move_eval_dict[m2] > self.black_king_thres:
+                return m1
+            else:
+                return m2
+        else:
+            m1 = min(king_move, key=king_move.get)
+            m2 = min(common_move, key=common_move.get)
+            if move_eval_dict[m1] - move_eval_dict[m2] < -self.white_king_thres:
+                return m1
+            else:
+                return m2
+
+
+
+
+    def minimax_move(self, depth=1, eval_func='king_pos_score'):
+        # return the move with max minimax score
+        # minimax(board, depth, player, alpha, beta) -> int:
+        move_eval_dict = {}
+        possible_moves = self.find_all_valid_moves()
+        if possible_moves:
+            for move in possible_moves: # format of move: (i, j, is_king=True/False)
+                game_copy = deepcopy(self)
+                game_copy.take_move(move[0], move[1], move[2])
+                move_eval_dict[move] = mm.minimax(game_copy.board, depth=depth, player=opposite(self.current_player),
+                                                  eval_func=eval_func, king_version=True)
+
+            move_eval_dict = mm.shuffle_dict(move_eval_dict)  # shuffle the dict, or always choose the same move
+
+            return self.best_move(move_eval_dict)
+        else:
+            return None
+
 
     def print_board(self):
         # ♔♚♕♛
@@ -115,9 +198,29 @@ class KingOthello(Othello):
             print('\n')
         print('================================================')
 
+    def finish_count(self, return_option='net', print_each_game_final=True):
+        """
+        :param return_option: 'net' : returns num_black - num_white, 'summary': returns num_black and num_white in a string
+        """
+        num_black = np.count_nonzero(self.board == BLACK or self.board == BLACK_KING)
+        num_white = np.count_nonzero(self.board == WHITE or self.board == WHITE_KING)
+        if num_black != num_white:
+            which_player = 'BLACK' if num_black > num_white else 'WHITE'  # 32-32 is omitted for simplicity
+            comment = "GAME END -- Black: {} White: {}. -- {} wins!".format(num_black, num_white, which_player)
+        else:
+            comment = "GAME END -- Black: {} White: {}. -- Draw!".format(num_black, num_white)
+        if print_each_game_final:
+            print(comment)
+        if return_option == 'net':
+            return num_black - num_white
+        elif return_option == 'summary':
+            return comment  # used for normal reversi GUI
+
+
+
 
 
 # if __name__ == '__main__':
-#
-#     # g1.print_board()
+
+
 

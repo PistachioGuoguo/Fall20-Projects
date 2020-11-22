@@ -27,7 +27,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SAT test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -85,28 +85,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="GUI_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Fall20-Projects" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="F:\py\597ds\Fall20-Projects\GUI_test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="Unnamed" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Fall20-Projects" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -121,28 +99,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="class_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Fall20-Projects" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/draft" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/draft/class_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -173,21 +129,65 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="othello" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Fall20-Projects" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/othello.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Fall20-Projects" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.Unnamed" />
-      <item itemvalue="Python.GUI_test" />
       <item itemvalue="Python.kingOthello" />
       <item itemvalue="Python.GUI_king" />
       <item itemvalue="Python.GUI_test (1)" />
-      <item itemvalue="Python.class_test" />
+      <item itemvalue="Python.othello" />
+      <item itemvalue="Python.test" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.GUI_king" />
         <item itemvalue="Python.GUI_test (1)" />
+        <item itemvalue="Python.othello" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.kingOthello" />
-        <item itemvalue="Python.class_test" />
-        <item itemvalue="Python.GUI_test" />
       </list>
     </recent_temporary>
   </component>
@@ -203,7 +203,8 @@
       <updated>1603954654553</updated>
       <workItem from="1603954660108" duration="23288000" />
       <workItem from="1604866529402" duration="34182000" />
-      <workItem from="1604975576188" duration="39066000" />
+      <workItem from="1604975576188" duration="43469000" />
+      <workItem from="1606014106105" duration="23781000" />
     </task>
     <servers />
   </component>
@@ -219,47 +220,47 @@
       <screen x="0" y="0" width="1100" height="785" />
     </state>
     <state x="356" y="112" key="#com.intellij.ide.util.MemberChooser/0.0.1100.785@0.0.1100.785" timestamp="1604504284936" />
-    <state x="462" y="159" key="FileChooserDialogImpl" timestamp="1605205461128">
+    <state x="462" y="159" key="FileChooserDialogImpl" timestamp="1605711959743">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="331" y="151" key="FileChooserDialogImpl/0.0.1100.785@0.0.1100.785" timestamp="1604504292979" />
-    <state x="462" y="159" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1605205461128" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1605646972851">
+    <state x="462" y="159" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1605711959743" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1606088989006">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1058" height="210" key="GridCell.Tab.0.bottom/0.0.1100.785@0.0.1100.785" timestamp="1604507399577" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605646972851" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1605646972851">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1606088989006" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1606088989006">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1058" height="210" key="GridCell.Tab.0.center/0.0.1100.785@0.0.1100.785" timestamp="1604507399577" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1605646972851" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1605646972851">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1606088989006" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1606088989006">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1058" height="210" key="GridCell.Tab.0.left/0.0.1100.785@0.0.1100.785" timestamp="1604507399577" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1605646972851" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1605646972851">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1606088989006" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1606088989006">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1058" height="210" key="GridCell.Tab.0.right/0.0.1100.785@0.0.1100.785" timestamp="1604507399577" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1605646972851" />
-    <state width="1493" height="260" key="GridCell.Tab.1.bottom" timestamp="1605644542284">
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1606088989006" />
+    <state width="1493" height="260" key="GridCell.Tab.1.bottom" timestamp="1605805568921">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="260" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605644542284" />
-    <state width="1493" height="260" key="GridCell.Tab.1.center" timestamp="1605644542283">
+    <state width="1493" height="260" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605805568921" />
+    <state width="1493" height="260" key="GridCell.Tab.1.center" timestamp="1605805568921">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="260" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1605644542283" />
-    <state width="1493" height="260" key="GridCell.Tab.1.left" timestamp="1605644542283">
+    <state width="1493" height="260" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1605805568921" />
+    <state width="1493" height="260" key="GridCell.Tab.1.left" timestamp="1605805568921">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="260" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1605644542283" />
-    <state width="1493" height="260" key="GridCell.Tab.1.right" timestamp="1605644542284">
+    <state width="1493" height="260" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1605805568921" />
+    <state width="1493" height="260" key="GridCell.Tab.1.right" timestamp="1605805568921">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="260" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1605644542284" />
+    <state width="1493" height="260" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1605805568921" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1605642194044">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -272,10 +273,11 @@
     <SUITE FILE_PATH="coverage/Fall20_Projects$toolbars.coverage" NAME="toolbars Coverage Results" MODIFIED="1604941894086" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/draft" />
     <SUITE FILE_PATH="coverage/Fall20_Projects$reversi.coverage" NAME="reversi Coverage Results" MODIFIED="1605631526203" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Fall20_Projects$class_test.coverage" NAME="class_test Coverage Results" MODIFIED="1605642351895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/draft" />
-    <SUITE FILE_PATH="coverage/Fall20_Projects$GUI_king.coverage" NAME="GUI_king Coverage Results" MODIFIED="1605646972842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Fall20_Projects$test.coverage" NAME="test Coverage Results" MODIFIED="1605030863316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Fall20_Projects$GUI_king.coverage" NAME="GUI_king Coverage Results" MODIFIED="1606088988994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Fall20_Projects$test.coverage" NAME="test Coverage Results" MODIFIED="1606018370627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Fall20_Projects$GUItest.coverage" NAME="GUI_main Coverage Results" MODIFIED="1604880801405" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Fall20_Projects$GUI_test__1_.coverage" NAME="GUI_test (1) Coverage Results" MODIFIED="1605646534401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Fall20_Projects$othello.coverage" NAME="othello Coverage Results" MODIFIED="1606077040265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Fall20_Projects$GUI_test__1_.coverage" NAME="GUI_test (1) Coverage Results" MODIFIED="1606077096041" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Fall20_Projects$kingOthello.coverage" NAME="kingOthello Coverage Results" MODIFIED="1605646407526" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

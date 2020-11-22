@@ -4,10 +4,9 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QMessageBox, QMainWin
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QIcon, QPalette, QPainter
 from PyQt5.QtMultimedia import QSound
-import othello
-import time
+import minimax as mm
 
-# this is the GUI for normal reversi
+# this is the GUI for common Othello
 
 BLACK = 1
 WHITE = 2
@@ -36,7 +35,7 @@ class OthelloWindow(QMainWindow): # originally QWidget
         self.init_UI()
 
     def init_UI(self):
-        self.game = othello.Othello()
+        self.game = mm.Othello()
         self.load_piece_asset()
         self.load_background()
         self.setMouseTracking(True)
@@ -129,13 +128,13 @@ class OthelloWindow(QMainWindow): # originally QWidget
 
     def game_over(self):
         # a message box to restart or quit game
-        msg = self.game.finish_count(return_option='full').split('--')
+        msg = self.game.finish_count(return_option='summary').split('--')
 
         reply = QMessageBox.question(self, msg[2].strip(), msg[1] + 'Restart?',
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
 
         if reply == QMessageBox.Yes:
-            self.game = othello.Othello() # reset
+            self.game = mm.Othello() # reset
             for piece in self.pieces:
                 piece.clear()
             self.draw_board()
