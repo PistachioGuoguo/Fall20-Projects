@@ -6,15 +6,22 @@ from random import shuffle
 # stats = {'a':1000, 'b':3000, 'c': 100, 'd':3000}
 # print(max(stats, key=stats.get))
 
-def shuffle_dict(old_dict : dict):
-    keys = list(old_dict.keys())
-    shuffle(keys)
-    shuffled_dict = {key: old_dict[key] for key in keys}
-    return shuffled_dict
+a = [1,1,1,2,2]
 
-dict1 = {'z':3, 'a':3, 'b':3, 'c':3}
-new_dict = shuffle_dict(dict1)
+a = np.array(a)
 
-print( max(new_dict, key=new_dict.get) )
 
+print(np.count_nonzero(a==1) + np.count_nonzero(a==2))
+
+# def shuffle_dict(old_dict : dict):
+#     keys = list(old_dict.keys())
+#     shuffle(keys)
+#     shuffled_dict = {key: old_dict[key] for key in keys}
+#     return shuffled_dict
+#
+# dict1 = {'z':3, 'a':3, 'b':3, 'c':3}
+# new_dict = shuffle_dict(dict1)
+#
+# print( max(new_dict, key=new_dict.get) )
+#
 

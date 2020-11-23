@@ -1,7 +1,9 @@
-from othello import Othello
-from othello import EMPTY, BLACK, WHITE, DIRECTIONS, DIM
-from othello import opposite, is_inbound, deepcopy
+
+from minimax import Othello
+from minimax import EMPTY, BLACK, WHITE, DIRECTIONS, DIM
+from minimax import opposite, is_inbound, deepcopy
 import minimax as mm
+
 import numpy as np
 
 BLACK_KING = 3
@@ -82,6 +84,7 @@ class KingOthello(Othello):
                 else:
                     self.white_king_remain -= 1
                     self.white_king_thres += KING_THRES_INCREMENT
+
             pieces_to_reverse = []
             for direction in DIRECTIONS:
                 new_x, new_y = x + direction[0], y + direction[1]
@@ -124,6 +127,27 @@ class KingOthello(Othello):
         else:
             return False
 
+
+    def test_flow(self, print_board=True, print_each_game_final=True):
+
+        while not self.is_game_end():
+            if self.find_all_valid_moves(): # if have valid moves for current player
+                while True:
+                    new_move = self.minimax_move() # both black and white are minimax ai
+                    if self.is_valid_move(new_move[0], new_move[1]): # if entered a valid move
+                        self.take_move(new_move[0], new_move[1])
+                        self.switch_turn()
+                        if print_board:
+                            self.print_board() # print the game situation when a valid move is taken
+                        break
+                    else:
+                        print('Invalid move. Please try again.')
+            else: # no valid moves for current player
+                self.switch_turn()
+
+        return self.finish_count(print_each_game_final= print_each_game_final) # num_black - num_white
+
+
     def find_all_valid_moves(self):
         # find all possible moves, return in form of: a list of tuples
         valid_moves = []
@@ -158,7 +182,6 @@ class KingOthello(Othello):
                 return m1
             else:
                 return m2
-
 
 
 
@@ -198,12 +221,13 @@ class KingOthello(Othello):
             print('\n')
         print('================================================')
 
+
     def finish_count(self, return_option='net', print_each_game_final=True):
         """
         :param return_option: 'net' : returns num_black - num_white, 'summary': returns num_black and num_white in a string
         """
-        num_black = np.count_nonzero(self.board == BLACK or self.board == BLACK_KING)
-        num_white = np.count_nonzero(self.board == WHITE or self.board == WHITE_KING)
+        num_black = np.count_nonzero(self.board == BLACK) + np.count_nonzero(self.board == BLACK_KING)
+        num_white = np.count_nonzero(self.board == WHITE) + np.count_nonzero(self.board == WHITE_KING)
         if num_black != num_white:
             which_player = 'BLACK' if num_black > num_white else 'WHITE'  # 32-32 is omitted for simplicity
             comment = "GAME END -- Black: {} White: {}. -- {} wins!".format(num_black, num_white, which_player)
@@ -218,9 +242,9 @@ class KingOthello(Othello):
 
 
 
-
-
-# if __name__ == '__main__':
-
+if __name__ == '__main__':
+    g1 = KingOthello()
+    for i in range(10):
+        g1.test_flow(print_board=False)
 
 

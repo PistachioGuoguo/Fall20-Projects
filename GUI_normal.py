@@ -61,7 +61,6 @@ class OthelloWindow(QMainWindow): # originally QWidget
         self.setWindowIcon(QIcon('img/pistachio.png'))  # 窗口图标
 
 
-
     def load_piece_asset(self):
         # load icons for black and white pieces, and scale to 90% of GRID_SIZE
         self.black_piece = QPixmap('img/black_piece.png').scaledToWidth(PIECE_SIZE)  # scale piece size to 90x90
@@ -78,7 +77,7 @@ class OthelloWindow(QMainWindow): # originally QWidget
                 self.draw_board()
 
                 if self.game.is_game_end(): # check end-of-game after a move is taken
-                    self.game.finish_count()
+                    self.game_over()
                 else:
                     self.game.switch_turn() # let white player move (AI)
                     # AI move
@@ -117,6 +116,7 @@ class OthelloWindow(QMainWindow): # originally QWidget
         for pos in self.feasibility:
             pos.clear()
         feasible_moves = self.game.find_all_valid_moves()
+
 
         # mark new feasible moves
         for move in feasible_moves:

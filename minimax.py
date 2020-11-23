@@ -1,5 +1,5 @@
-from othello import Othello, DIM, BLACK, WHITE, DIRECTIONS
-from othello import np, deepcopy, opposite, is_inbound
+from othello import Othello, DIM, BLACK, WHITE, DIRECTIONS, EMPTY
+from othello import np, deepcopy, opposite, is_inbound, board
 from kingOthello import KingOthello, king, BLACK_KING, WHITE_KING
 import random
 
@@ -7,6 +7,7 @@ import random
 IN_LINE_WITH_ENEMY_KING_PENALTY = 100 # if you put a king in same line with enemy's king, your king is in danger
 # to prevent this, we add a penalty to avoid such kind of behaviors
 KING_ON_BORDER_BONUS = 75 # if you first put king on a boarder, you have good possibility to control this border
+BASIC_KING_SCORE = 10 # A king piece has this basic score, as in pos_score_sum
 
 def shuffle_dict(old_dict : dict):
     # shuffle the dictionary for a different order, or 'max' function will always return the same element
@@ -40,6 +41,10 @@ def pos_score_sum(board):
                 sum_black += pos_score_map[i, j]
             elif board[i, j] == WHITE:
                 sum_white += pos_score_map[i, j]
+            elif board[i,j] == BLACK_KING:
+                sum_black += pos_score_map[i, j] + BASIC_KING_SCORE
+            elif board[i,j] == WHITE_KING:
+                sum_white += pos_score_map[i, j] + BASIC_KING_SCORE
     return  sum_black - sum_white
 
 
@@ -130,10 +135,8 @@ def king_pos_score_sum(board):
                 new_i, new_j = new_i + direction[0], new_j + direction[0] # proceed with this direction
             # out of bound, met enemy piece, or enemy king
             if is_inbound(new_i, new_j): # if still in bound, means it encountered enemy pieces
-                while is_inbound(new_i, new_j) and board[new_i, new_j] in [opposite(player), king(player)]:  # if self's piece
-                    if board[new_i, new_j] == king(opposite(player)):
-                        score -= IN_LINE_WITH_ENEMY_KING_PENALTY # avoid in same line with enemy king, as you might be turned
-                    new_i, new_j = new_i + direction[0], new_j + direction[0]
+                if board[new_i, new_j] == king(opposite(player)):
+                    score -= IN_LINE_WITH_ENEMY_KING_PENALTY # avoid right in same line with enemy king (where the first piece after our row of pieces is an enemy king), as you might be turned
             # else: out of bound, just continue
         return score if player==BLACK else -score # black is maximizing player and white is minimizing
 
@@ -143,4 +146,5 @@ def king_pos_score_sum(board):
                 score += get_king_additional_score(i, j, BLACK)
             elif board[i,j] == WHITE_KING:
                 score += get_king_additional_score(i, j, WHITE)
+
     return score

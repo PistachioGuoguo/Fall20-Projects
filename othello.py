@@ -243,38 +243,38 @@ def AI_compete_matrix():
             wr = AI_vs_AI(100, ai1, ai2, print_each_game_final=False, print_game_summary=False)
             print('%s - %s : %.2f' % (ai1, ai2, wr))
 
-if __name__ == '__main__':
-
-    random.seed(1)
+# if __name__ == '__main__':
+#
+#     random.seed(1)
 
     # strategies for AI: 'random', 'minimax'
     # minimax strats: 'minimax|depth|eval_func', where depth=1,2,3,... eval_func = 'pos_score', 'mobi', 'pos_mobi'
     # e.g:  black_strat='minimax|1|pos_mobi'
 
     # AI_vs_AI(num_game=100, black_strat='minimax|0|pos_score', white_strat='minimax|0|pos_mobi' )
-    AI_vs_AI(num_game=100, black_strat='random', white_strat='minimax|0|pos_score')
+    # AI_vs_AI(num_game=100, black_strat='random', white_strat='minimax|0|pos_score')
     # man_vs_AI(human_first=True, ai_strategy='minimax')
 
     # this function is extremely time-costing
     # AI_compete_matrix()
 
-    # g1 = Game()
+    # g1 = Othello()
     # # g1.main_flow(game_mode='machine-machine', human_first=True)
     # # g1.main_flow(game_mode='machine-machine', ai_strategy='minimax')
     # g1.main_flow(game_mode='machine-machine', black_strat='minimax', white_strat='random')
 
 
-
-# board = np.full((DIM, DIM), BLACK)
-# board[4,4] = WHITE
-# board[0,0] = EMPTY; board[7,7] = EMPTY; board[0,7] = EMPTY; board[7,0] = EMPTY
-# s1.board = board
-# s1.current_player = WHITE
-# s1.take_move(0,0)
-# s1.take_move(0,7)
-# s1.take_move(7,0)
-# s1.take_move(7,7)
-# board = s1.board
+s1 = Othello()
+board = np.full((DIM, DIM), BLACK)
+board[4,4] = WHITE
+board[0,0] = EMPTY; board[7,7] = EMPTY; board[0,7] = EMPTY; board[7,0] = EMPTY
+s1.board = board
+s1.current_player = WHITE
+s1.take_move(0,0)
+s1.take_move(0,7)
+s1.take_move(7,0)
+s1.take_move(7,7)
+board = s1.board
 
 
 # s1 = Game()

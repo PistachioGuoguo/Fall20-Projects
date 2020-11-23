@@ -1,8 +1,9 @@
-from GUI_test import OthelloWindow
-from GUI_test import QApplication, sys, QPixmap, Qt, QPalette, QtGui, QLabel, QMessageBox
-from GUI_test import BLACK, WHITE, PIECE_SIZE, pixel_to_coord, coord_to_pixel
+from GUI_normal import OthelloWindow
+from GUI_normal import QApplication, sys, QPixmap, Qt, QPalette, QtGui, QLabel, QMessageBox
+from GUI_normal import BLACK, WHITE, PIECE_SIZE, pixel_to_coord, coord_to_pixel
 from minimax import KingOthello, BLACK_KING, WHITE_KING
 from copy import deepcopy
+import time
 
 
 class KingOthelloWindow(OthelloWindow):
@@ -11,12 +12,14 @@ class KingOthelloWindow(OthelloWindow):
         super().__init__()
         self.init_UI()
 
+
     def init_UI(self): # override by redefining load_piece_asset
         self.game = KingOthello()
         OthelloWindow.load_background(self)
         self.load_piece_asset()
         self.setWindowTitle("Pistachio-Guoguo's King Othello")  # 窗口名称
         self.draw_board()
+
 
     def load_piece_asset(self): # override method by adding king piece assets
         self.black_king_piece = QPixmap('img/black_king_piece.png').scaledToWidth(PIECE_SIZE)  # scale piece size to 90x90
@@ -32,7 +35,6 @@ class KingOthelloWindow(OthelloWindow):
             if self.game.is_valid_move(i,j):
                 self.game.take_move(i, j)
                 self.draw_board()
-                # self.game.switch_turn()
                 self.check_and_AI_move()
 
         elif e.button() == Qt.RightButton: # try to place a king
@@ -41,8 +43,6 @@ class KingOthelloWindow(OthelloWindow):
             if self.game.is_valid_move(i, j, is_king=True):
                 self.game.take_move(i, j, is_king=True)
                 self.draw_board()
-                # self.game.switch_turn()
-
                 self.check_and_AI_move()
 
     def check_and_AI_move(self):
@@ -56,18 +56,16 @@ class KingOthelloWindow(OthelloWindow):
                 self.game.take_move(ai_move[0], ai_move[1], ai_move[2])
                 self.game.switch_turn()  # hand over to Human, convenient to draw feasible moves
                 self.draw_board()
+                if not self.game.find_all_valid_moves(): # human player has no valid move
+                    time.sleep(0.5)
+                    print('No move for human.')
+                    self.check_and_AI_move()
             else:
+                print("No move for AI.")
                 self.game.switch_turn()  # no moves, hand over to other player
             if self.game.is_game_end():  # no moves for both side
                 self.game_over()
 
-    def is_game_end(self):
-        if not self.find_all_valid_moves(): # make sure 1st player has no valid moves
-            game_copy = deepcopy(self)
-            game_copy.switch_turn() # check whether the other player also has valid moves
-            return True if not game_copy.find_all_valid_moves() else False
-        else:
-            return False
 
     def draw_piece(self, x, y, color):
         if color == BLACK:
@@ -93,6 +91,7 @@ class KingOthelloWindow(OthelloWindow):
         # clear previous feasible move markers
         for pos in self.feasibility:
             pos.clear()
+        # self.feasibility = [QLabel(self) for i in range(64)]
         feasible_moves = self.game.find_all_valid_moves()
 
         # mark new feasible moves
@@ -116,6 +115,7 @@ class KingOthelloWindow(OthelloWindow):
             self.draw_board()
         else:
             self.close()
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = KingOthelloWindow()
