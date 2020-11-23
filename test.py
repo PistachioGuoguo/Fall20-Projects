@@ -25,3 +25,17 @@ print(np.count_nonzero(a==1) + np.count_nonzero(a==2))
 # print( max(new_dict, key=new_dict.get) )
 #
 
+class Othello:
+    def main_flow(self):
+        while not self.is_game_end():
+            if self.find_all_valid_moves(): # if have valid moves for current player
+                while True:
+                    new_move = self.get_move(self.current_player) # request new move
+                    if self.is_valid_move(new_move[0], new_move[1]): # if entered a valid move
+                        self.take_move(new_move[0], new_move[1])
+                        self.switch_turn()
+                        break
+                    else:
+                        print('Invalid move.')
+            else: # no valid moves for current player
+                self.switch_turn()

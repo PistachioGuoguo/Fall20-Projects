@@ -12,7 +12,6 @@ class KingOthelloWindow(OthelloWindow):
         super().__init__()
         self.init_UI()
 
-
     def init_UI(self): # override by redefining load_piece_asset
         self.game = KingOthello()
         OthelloWindow.load_background(self)

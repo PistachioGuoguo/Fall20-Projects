@@ -11,7 +11,7 @@ WHITE_KING = 4
 
 NUM_INITIAL_KING = 5
 PLACE_KING_THRESHOLD = 20 # there needs to be a threshold to place king, only exceed this threshold
-KING_THRES_INCREMENT = 20 # for each king place, the threshold rise up, to not waste king pieces
+KING_THRES_INCREMENT = 5 # for each king place, the threshold rise up, to not waste king pieces
 
 def king(player: int):
     if player == BLACK:
@@ -239,7 +239,6 @@ class KingOthello(Othello):
             return num_black - num_white
         elif return_option == 'summary':
             return comment  # used for normal reversi GUI
-
 
 
 if __name__ == '__main__':

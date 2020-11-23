@@ -32,7 +32,7 @@ class OthelloWindow(QMainWindow): # originally QWidget
 
     def __init__(self):
         super().__init__()
-        self.init_UI()
+        # self.init_UI() # this line is commented if you use GUI_king, since this can lead to inaccurate feasible moves
 
     def init_UI(self):
         self.game = mm.Othello()
